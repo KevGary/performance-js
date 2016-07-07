@@ -2,4 +2,44 @@ extends layout
 
 block content
 	.global(ng-controller="Global")
-		p {{hello}}
+		.row
+			form.test-form
+				.col-md-3.urls
+					h1 URLs
+					.input-group.urls-col(ng-repeat="input in formData.urls track by $index")
+						input.form-control(type="text" name="url" placeholder="{{input.placeholder}}" ng-model="input.value")
+						span.input-group-btn#plus-addon
+							button.btn.btn-success.add-url(type="button" ng-click="addInput('url')")
+								span
+									i.fa.fa-plus(aria-hidden="true")
+				.col-md-3.rcs
+					h1 RCs
+					div(ng-repeat="input in formData.rcs track by $index")
+						.col-md-6
+							.input-group.rcs-col
+								input.form-control(type="number" name="url" placeholder="{{input.request.placeholder}}" ng-model="input.request.value")
+						.col-md-6
+							.input-group.rcs-col
+								input.form-control(type="text" name="url" placeholder="{{input.concurrency.placeholder}}" ng-model="input.concurrency.value")
+								span.input-group-btn#plus-addon
+									button.btn.btn-success.add-url(type="button" ng-click="addInput('rc')")
+										span
+											i.fa.fa-plus(aria-hidden="true")
+				.col-md-3.headers
+					h1 Headers
+					.input-group.headers-col(ng-repeat="input in formData.headers")
+						input.form-control(type="text" name="url" placeholder="{{input.placeholder}}" ng-model="input.value")
+						span.input-group-btn#plus-addon
+							button.btn.btn-success.add-url(type="button" ng-click="addInput('header')")
+								span
+									i.fa.fa-plus(aria-hidden="true")
+			.col-md-3.display-data
+				pre
+					{{formData | json}}
+
+		//- form.test-form(name="testForm" novalidate)
+		//- 	.form-group(ng-repeat='input in formData.users', ng-class="{ 'has-error' : userFieldForm.email.$invalid }")
+		//- 		label {{ user.name }}'s Email
+		//- 		input.form-control(type='text', name='email', ng-model='user.email', required='')
+		//- 		p.help-block(ng-show='userFieldForm.email.$invalid') Valid Email Address Required
+

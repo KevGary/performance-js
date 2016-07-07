@@ -6,3 +6,25 @@ body {
 a {
   color: #00B7FF;
 }
+
+.input-group {
+	margin-bottom: 20px !important;
+}
+
+.test-form {
+	transition:all linear 0.5s;
+	background: transparent;
+	text-align: center;
+}
+.test-form.ng-invalid {
+	background: red;
+}
+
+.col-title {
+	text-align: center;
+}
+
+.display-data {
+	margin-top: 68px;
+	overflow: scroll;
+}

@@ -28,3 +28,8 @@ a {
 	margin-top: 68px;
 	overflow: scroll;
 }
+
+.submit-btn {
+	width: 100%;
+	margin-bottom: 20px !important;
+}

@@ -1,12 +1,9 @@
-app.controller('Global', function($scope) {
-	//init
-	// $scope.nUrls = 1;
-	// $scope.nRCs = 1;
+angular.module('performance-js')
+	.controller('Global', Global); 
 
-	//populate array of n length
-	// $scope.populateArray = function(num) {
-	// 	return new Array(num);
-	// }
+
+function Global($scope, performanceTest) {
+	var vm = this;
 	var urlInput = {
 		value: '',
 		placeholder: 'URL'
@@ -25,22 +22,38 @@ app.controller('Global', function($scope) {
 		value: '',
 		placeholder: 'Header'
 	};
-
-	$scope.formData = {
+	vm.formData = {
 		urls: [urlInput],
 		rcs: [rcInput],
 		headers: [headerInput]
 	};
-	$scope.addInput = function(param) {
+
+	vm.runTest = runTest;
+	vm.testResults;
+	vm.errors = [];
+
+	vm.addInput = addInput;
+	vm.stringify = stringify;
+
+	function runTest() {
+		return performanceTest.run(vm.formData)
+			.then(function(response) {
+				vm.testResults = response;
+			}).catch(function(response) {
+				vm.errors.push(response);
+			});
+	}
+
+	function addInput(param) {
 		switch(param) {
 			case 'url':
-				$scope.formData.urls.push({
+				vm.formData.urls.push({
 					value: 0,
 					placeholder: 'URL'
 				});
 				break;
 			case 'rc':
-				$scope.formData.rcs.push({
+				vm.formData.rcs.push({
 					request: {
 						value: 0,
 						placeholder: 'req'
@@ -52,7 +65,7 @@ app.controller('Global', function($scope) {
 				});
 				break;
 			case 'header':
-				$scope.formData.headers.push({
+				vm.formData.headers.push({
 					value: '',
 					placeholder: 'Header'
 				});
@@ -63,7 +76,7 @@ app.controller('Global', function($scope) {
 		};
 	};
 
-	$scope.stringify = function(param) {
+	function stringify(param) {
 		return JSON.stringify(param, undefined, 2);
 	}
-});
+}
